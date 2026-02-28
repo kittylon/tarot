@@ -1,43 +1,19 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
+import { useLang } from '../context/LangContext';
+import { UI } from '../i18n/ui';
 
-const FEATURES = [
-  {
-    to: '/draw',
-    icon: '🃏',
-    title: 'Draw a Card',
-    desc: 'Let fate choose a single card for guidance and reflection.',
-  },
-  {
-    to: '/spreads',
-    icon: '✦',
-    title: 'Read a Spread',
-    desc: 'Lay the Celtic Cross or a three-card spread for deeper insight.',
-  },
-  {
-    to: '/gallery',
-    icon: '📖',
-    title: 'Browse the Deck',
-    desc: 'Explore all 78 cards of the Tarot de Marseille with their meanings.',
-  },
-  {
-    to: '/journal',
-    icon: '📓',
-    title: 'Daily Journal',
-    desc: 'Record your daily draws and build a personal reading practice.',
-  },
-];
+const FEATURE_LINKS = ['/spreads', '/gallery', '/journal'];
+const FEATURE_ICONS = ['✦', '📖', '📓'];
 
 function Stars() {
   const canvasRef = useRef(null);
-
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     canvas.width  = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
-
     const stars = Array.from({ length: 120 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -45,7 +21,6 @@ function Stars() {
       phase: Math.random() * Math.PI * 2,
       speed: Math.random() * 0.005 + 0.002,
     }));
-
     let raf;
     function draw(t) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -61,52 +36,78 @@ function Stars() {
     raf = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(raf);
   }, []);
-
   return (
-    <canvas
-      ref={canvasRef}
-      className="home-stars"
-      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
-    />
+    <canvas ref={canvasRef} className="home-stars"
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
   );
 }
 
 export default function Home() {
+  const { lang } = useLang();
+  const ui = UI[lang].home;
+
   return (
-    <div className="home-hero">
-      <Stars />
-
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1>Tarot de Marseille</h1>
-        <p className="home-subtitle">
-          Ancient wisdom through the cards of Jean Dodal — draw, reflect, and discover.
-        </p>
-
-        <hr className="divider" style={{ width: '200px' }} />
-
-        <div className="home-cards">
-          {FEATURES.map(f => (
-            <Link key={f.to} to={f.to} className="home-feature-card">
-              <span className="home-feature-icon">{f.icon}</span>
-              <span className="home-feature-title">{f.title}</span>
-              <span className="home-feature-desc">{f.desc}</span>
-            </Link>
-          ))}
+    <>
+      <div className="home-hero">
+        <Stars />
+        <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h1>Tarot de Marseille</h1>
+          <p className="home-subtitle">{ui.subtitle}</p>
+          <hr className="divider" style={{ width: '200px' }} />
+          <div className="home-cards">
+            {ui.features.map((f, i) => (
+              <Link key={FEATURE_LINKS[i]} to={FEATURE_LINKS[i]} className="home-feature-card">
+                <span className="home-feature-icon">{FEATURE_ICONS[i]}</span>
+                <span className="home-feature-title">{f.title}</span>
+                <span className="home-feature-desc">{f.desc}</span>
+              </Link>
+            ))}
+          </div>
+          <p style={{ marginTop: '3rem', fontSize: '0.8rem', color: 'var(--color-text-muted)', maxWidth: '480px', textAlign: 'center', lineHeight: 1.7, fontStyle: 'italic' }}>
+            {ui.attribution}
+          </p>
         </div>
-
-        <p style={{
-          marginTop: '3rem',
-          fontSize: '0.8rem',
-          color: 'var(--color-text-muted)',
-          maxWidth: '480px',
-          textAlign: 'center',
-          lineHeight: 1.7,
-          fontStyle: 'italic',
-        }}>
-          Card images from the Jean Dodal Tarot (Lyon, c. 1701–1715), restored by Jean-Claude Flornoy.
-          Public domain via Wikimedia Commons.
-        </p>
       </div>
-    </div>
+
+      {/* ── History ── */}
+      <section className="home-section home-section--history">
+        <div className="container">
+          <h2 className="home-section-title">{ui.historyTitle}</h2>
+          <p className="home-history-text">{ui.historyText}</p>
+        </div>
+      </section>
+
+      {/* ── Colors ── */}
+      <section className="home-section home-section--colors">
+        <div className="container">
+          <h2 className="home-section-title">{ui.colorsTitle}</h2>
+          <div className="home-colors-grid">
+            {ui.colors.map(c => (
+              <div key={c.name} className="home-color-item">
+                <span className="home-color-swatch" style={{ background: c.swatch }} />
+                <strong className="home-color-name">{c.name}</strong>
+                <p className="home-color-meaning">{c.meaning}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Tips ── */}
+      <section className="home-section home-section--tips">
+        <div className="container">
+          <h2 className="home-section-title">{ui.tipsTitle}</h2>
+          <div className="home-tips-grid">
+            {ui.tips.map(t => (
+              <div key={t.title} className="home-tip-card">
+                <span className="home-tip-icon">{t.icon}</span>
+                <strong className="home-tip-title">{t.title}</strong>
+                <p className="home-tip-text">{t.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,86 +1,91 @@
 import { useState } from 'react';
-import { SPREADS, SPREAD_LIST } from '../data/spreads';
-import { drawMultiple, MAJOR_ARCANA } from '../data/cards';
+import { SPREADS, SPREAD_LIST, getSpreadName, getSpreadDescription, getPositionLabel, getPositionDescription, getIdealFor } from '../data/spreads';
+import { drawMultiple, MAJOR_ARCANA, getMeaning, getCardName } from '../data/cards';
+
 import SpreadLayout from '../components/SpreadLayout';
+import IntentionModal from '../components/IntentionModal';
+import ReadingNotebook from '../components/ReadingNotebook';
+import { useLang } from '../context/LangContext';
+import { UI } from '../i18n/ui';
 
 export default function Spreads() {
-  const [selectedSpread, setSelectedSpread] = useState(null);
-  const [drawnCards,     setDrawnCards]     = useState([]);
-  const [lastRevealed,   setLastRevealed]   = useState(null); // { card, isReversed, posLabel }
-  const [majorOnly,      setMajorOnly]      = useState(false);
+  const { lang } = useLang();
+  const ui = UI[lang].spreads;
 
-  function startReading(spreadId) {
-    const spread = SPREADS[spreadId];
-    const deck   = majorOnly ? MAJOR_ARCANA : undefined; // undefined → drawMultiple uses ALL_CARDS default
+  const [phase,           setPhase]           = useState('select'); // 'select'|'intention'|'reading'
+  const [pendingSpread,   setPendingSpread]   = useState(null);
+  const [selectedSpread,  setSelectedSpread]  = useState(null);
+  const [drawnCards,      setDrawnCards]      = useState([]);
+  const [majorOnly,       setMajorOnly]       = useState(false);
+  const [intention,       setIntention]       = useState('');
+  const [notebookEntries, setNotebookEntries] = useState([]);
+  const [showSummary,     setShowSummary]     = useState(false);
+
+  function handleSpreadSelect(spreadId) {
+    setPendingSpread(SPREADS[spreadId]);
+    setPhase('intention');
+  }
+
+  function startReading(intentionText) {
+    const spread = pendingSpread;
+    const deck   = majorOnly ? MAJOR_ARCANA : undefined;
     const drawn  = drawMultiple(spread.cardCount, deck);
     setDrawnCards(drawn.map(d => ({ ...d, isFlipped: false })));
     setSelectedSpread(spread);
-    setLastRevealed(null);
+    setIntention(intentionText);
+    setNotebookEntries([]);
+    setShowSummary(false);
+    setPhase('reading');
   }
 
   function revealCard(index) {
-    setDrawnCards(prev => {
-      const next = prev.map((d, i) => i === index ? { ...d, isFlipped: true } : d);
-      const d = next[index];
-      setLastRevealed({
-        card: d.card,
-        isReversed: d.isReversed,
-        posLabel: selectedSpread.positions[index].label,
-      });
-      return next;
-    });
+    const entry = drawnCards[index];
+    if (entry.isFlipped) return;
+    const pos = selectedSpread.positions[index];
+    setDrawnCards(prev => prev.map((d, i) => i === index ? { ...d, isFlipped: true } : d));
+    setNotebookEntries(nb => [...nb, { card: entry.card, isReversed: entry.isReversed, pos }]);
   }
 
   function resetReading() {
+    setPhase('select');
     setSelectedSpread(null);
     setDrawnCards([]);
-    setLastRevealed(null);
-    // majorOnly intentionally preserved so the user's preference persists
+    setNotebookEntries([]);
+    setIntention('');
+    setPendingSpread(null);
+    setShowSummary(false);
   }
 
-  if (!selectedSpread) {
+  // ── Selector ─────────────────────────────────────────────────────────────────
+  if (phase === 'select') {
     return (
       <div className="page-content">
         <div className="container">
-          <h1 className="section-title">Spreads</h1>
+          <h1 className="section-title">{ui.title}</h1>
           <p style={{ textAlign: 'center', color: 'var(--color-text-secondary)', marginBottom: 'var(--space-xl)' }}>
-            Choose a spread to begin your reading.
+            {ui.chooseDesc}
           </p>
-
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 'var(--space-lg)' }}>
-            <div style={{
-              display: 'inline-flex',
-              border: '1px solid var(--color-border)',
-              borderRadius: 8,
-              overflow: 'hidden',
-            }}>
-              <button
-                className={`filter-pill${!majorOnly ? ' active' : ''}`}
+            <div style={{ display: 'inline-flex', border: '1px solid var(--color-border)', borderRadius: 8, overflow: 'hidden' }}>
+              <button className={`filter-pill${!majorOnly ? ' active' : ''}`}
                 style={{ borderRadius: 0, border: 'none', padding: '0.4rem 1.1rem' }}
-                onClick={() => setMajorOnly(false)}
-              >
-                Full Deck
-              </button>
-              <button
-                className={`filter-pill${majorOnly ? ' active' : ''}`}
+                onClick={() => setMajorOnly(false)}>{ui.fullDeck}</button>
+              <button className={`filter-pill${majorOnly ? ' active' : ''}`}
                 style={{ borderRadius: 0, border: 'none', borderLeft: '1px solid var(--color-border)', padding: '0.4rem 1.1rem' }}
-                onClick={() => setMajorOnly(true)}
-              >
-                Major Arcana only
-              </button>
+                onClick={() => setMajorOnly(true)}>{ui.majorOnly}</button>
             </div>
           </div>
-
           <div className="spreads-selector">
             {SPREAD_LIST.map(spread => (
-              <button
-                key={spread.id}
-                className="spread-option-card"
-                onClick={() => startReading(spread.id)}
-              >
+              <button key={spread.id} className="spread-option-card" onClick={() => handleSpreadSelect(spread.id)}>
                 <span className="spread-option-count">{spread.cardCount}</span>
-                <span className="spread-option-name">{spread.nameEn}</span>
-                <span className="spread-option-desc">{spread.description}</span>
+                <span className="spread-option-name">{getSpreadName(spread, lang)}</span>
+                <span className="spread-option-desc">{getSpreadDescription(spread, lang)}</span>
+                {getIdealFor(spread, lang) && (
+                  <span className="spread-option-ideal">
+                    <em>{ui.idealForLabel}:</em> {getIdealFor(spread, lang)}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -89,68 +94,138 @@ export default function Spreads() {
     );
   }
 
-  const allFlipped = drawnCards.length > 0 && drawnCards.every(d => d.isFlipped);
+  // ── Intención ────────────────────────────────────────────────────────────────
+  if (phase === 'intention') {
+    return (
+      <IntentionModal
+        lang={lang}
+        onConfirm={text => startReading(text)}
+      />
+    );
+  }
+
+  // ── Lectura activa ───────────────────────────────────────────────────────────
+  const allFlipped    = drawnCards.length > 0 && drawnCards.every(d => d.isFlipped);
   const revealedCount = drawnCards.filter(d => d.isFlipped).length;
+  const lastEntry     = notebookEntries[notebookEntries.length - 1] || null;
 
   return (
     <div className="page-content">
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'var(--space-lg)', flexWrap: 'wrap', gap: 'var(--space-md)' }}>
           <div>
-            <h1 style={{ fontSize: '1.6rem' }}>{selectedSpread.nameEn}</h1>
-            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>
-              {selectedSpread.description}
-            </p>
+            <h1 style={{ fontSize: '1.6rem' }}>{getSpreadName(selectedSpread, lang)}</h1>
+            <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>{getSpreadDescription(selectedSpread, lang)}</p>
             <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>
-              {majorOnly ? '★ Major Arcana only' : 'Full deck (78 cards)'}
+              {majorOnly ? ui.majorOnlyLabel : ui.fullDeckLabel}
             </p>
           </div>
-          <button className="btn btn-ghost" onClick={resetReading}>
-            ← Choose Spread
-          </button>
+          <button className="btn btn-ghost" onClick={resetReading}>{ui.chooseBtn}</button>
         </div>
 
-        <div className="spread-reading-area">
-          {!allFlipped && (
-            <p className="spread-hint">
-              {revealedCount === 0
-                ? 'Click any card position to reveal it.'
-                : `${revealedCount} of ${selectedSpread.cardCount} revealed — click the next card to continue.`}
-            </p>
-          )}
+        {intention && (
+          <div className="intention-banner">
+            <span className="intention-banner-label">✦ {ui.intentionBanner}</span>
+            <p className="intention-banner-text">"{intention}"</p>
+          </div>
+        )}
 
-          <SpreadLayout
+        <div className="reading-layout">
+          <div className="reading-main">
+
+            {/* ── Summary view ── */}
+            {showSummary ? (
+              <div className="reading-summary">
+                <div className="reading-summary-header">
+                  <div className="reading-summary-symbol">✦</div>
+                  <h2 className="reading-summary-title">{ui.summaryTitle}</h2>
+                  <p className="reading-summary-spread-name">{getSpreadName(selectedSpread, lang)}</p>
+                  {intention && (
+                    <p className="reading-summary-intention">"{intention}"</p>
+                  )}
+                </div>
+
+                <ol className="reading-summary-list">
+                  {notebookEntries.map((entry, i) => (
+                    <li key={i} className="reading-summary-item">
+                      <div className="reading-summary-item-top">
+                        <span className="reading-summary-num">{i + 1}</span>
+                        <span className="reading-summary-pos">{getPositionLabel(entry.pos, lang)}</span>
+                        <span className="reading-summary-card-name">{getCardName(entry.card, lang)}</span>
+                        <span className={`orientation-badge ${entry.isReversed ? 'reversed' : 'upright'}`}>
+                          {entry.isReversed ? ui.reversed : ui.upright}
+                        </span>
+                      </div>
+                      {getPositionDescription(entry.pos, lang) && (
+                        <p className="reading-summary-pos-desc">{getPositionDescription(entry.pos, lang)}</p>
+                      )}
+                      <p className="reading-summary-meaning">{getMeaning(entry.card, lang, entry.isReversed)}</p>
+                    </li>
+                  ))}
+                </ol>
+
+                <div className="reading-summary-actions">
+                  <button className="btn btn-ghost" onClick={() => setShowSummary(false)}>{ui.summaryBack}</button>
+                  <button className="btn btn-gold" onClick={() => startReading(intention)}>{ui.newReading}</button>
+                </div>
+              </div>
+            ) : (
+              /* ── Spread view ── */
+              <div className="spread-reading-area">
+                {!allFlipped && (
+                  <p className="spread-hint">
+                    {revealedCount === 0 ? ui.clickReveal : ui.revealProgress(revealedCount, selectedSpread.cardCount)}
+                  </p>
+                )}
+
+                <SpreadLayout
+                  spread={selectedSpread}
+                  drawnCards={drawnCards}
+                  onPositionClick={revealCard}
+                  lang={lang}
+                />
+
+                {lastEntry && (
+                  <div className="spread-revealed-panel">
+                    <div className="spread-revealed-pos">{getPositionLabel(lastEntry.pos, lang)}</div>
+                    {getPositionDescription(lastEntry.pos, lang) && (
+                      <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', fontStyle: 'italic', lineHeight: 1.6, marginBottom: 'var(--space-md)', paddingBottom: 'var(--space-md)', borderBottom: '1px solid var(--color-border)' }}>
+                        {getPositionDescription(lastEntry.pos, lang)}
+                      </p>
+                    )}
+                    <h3>{getCardName(lastEntry.card, lang)}</h3>
+                    <p style={{ marginBottom: 'var(--space-sm)', marginTop: 'var(--space-xs)' }}>
+                      <span className={`orientation-badge ${lastEntry.isReversed ? 'reversed' : 'upright'}`}>
+                        {lastEntry.isReversed ? ui.reversed : ui.upright}
+                      </span>
+                    </p>
+                    <p className="spread-revealed-meaning">
+                      {getMeaning(lastEntry.card, lang, lastEntry.isReversed)}
+                    </p>
+                  </div>
+                )}
+
+                {allFlipped && (
+                  <div className="spread-complete-actions">
+                    <button className="btn btn-gold btn-summary" onClick={() => setShowSummary(true)}>
+                      {ui.summaryBtn}
+                    </button>
+                    <button className="btn btn-ghost" onClick={() => startReading(intention)} style={{ marginTop: 'var(--space-sm)' }}>
+                      {ui.newReading}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
+          </div>
+
+          <ReadingNotebook
+            lang={lang}
             spread={selectedSpread}
-            drawnCards={drawnCards}
-            onPositionClick={revealCard}
+            revealedEntries={notebookEntries}
+            intention={intention}
           />
-
-          {lastRevealed && (
-            <div className="spread-revealed-panel">
-              <div className="spread-revealed-pos">{lastRevealed.posLabel}</div>
-              <h3>{lastRevealed.card.nameEn}</h3>
-              <p style={{ marginBottom: 'var(--space-sm)' }}>
-                <span className={`orientation-badge ${lastRevealed.isReversed ? 'reversed' : 'upright'}`}>
-                  {lastRevealed.isReversed ? 'Reversed' : 'Upright'}
-                </span>
-              </p>
-              <p className="spread-revealed-meaning">
-                {lastRevealed.isReversed
-                  ? lastRevealed.card.reversedMeaning
-                  : lastRevealed.card.uprightMeaning}
-              </p>
-            </div>
-          )}
-
-          {allFlipped && (
-            <button
-              className="btn btn-gold"
-              onClick={() => startReading(selectedSpread.id)}
-              style={{ marginTop: 'var(--space-lg)' }}
-            >
-              ↺ New Reading
-            </button>
-          )}
         </div>
       </div>
     </div>

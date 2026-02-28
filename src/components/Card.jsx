@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getImageUrl } from '../data/cards';
+import { getImageUrl, getCardName } from '../data/cards';
 
 const SUIT_ICONS = {
   wands:     '🔥',
@@ -7,6 +7,8 @@ const SUIT_ICONS = {
   swords:    '⚔',
   pentacles: '✦',
 };
+
+const REVERSED_LABEL = { es: 'Invertida', en: 'Reversed', fr: 'Renversée' };
 
 function CardBack() {
   return (
@@ -18,7 +20,7 @@ function CardBack() {
   );
 }
 
-function CardPlaceholder({ card }) {
+function CardPlaceholder({ card, lang = 'en' }) {
   const suitClass = card.suit ? `suit-${card.suit}` : '';
   const display = card.romanNumeral ?? (card.number != null ? String(card.number) : '');
   return (
@@ -26,7 +28,7 @@ function CardPlaceholder({ card }) {
       <div className="placeholder-ornament" />
       <div className="placeholder-body">
         {display && <div className="placeholder-numeral">{display}</div>}
-        <div className="placeholder-name">{card.name}</div>
+        <div className="placeholder-name">{getCardName(card, lang)}</div>
         {card.suit && (
           <div className="placeholder-suit-icon">{SUIT_ICONS[card.suit]}</div>
         )}
@@ -36,7 +38,7 @@ function CardPlaceholder({ card }) {
   );
 }
 
-function CardFace({ card }) {
+function CardFace({ card, lang = 'en' }) {
   const [imgError, setImgError] = useState(false);
   const url = getImageUrl(card.wikimediaFile);
 
@@ -45,13 +47,13 @@ function CardFace({ card }) {
       {url && !imgError ? (
         <img
           src={url}
-          alt={card.nameEn}
+          alt={getCardName(card, lang)}
           className="card-image"
           loading="lazy"
           onError={() => setImgError(true)}
         />
       ) : (
-        <CardPlaceholder card={card} />
+        <CardPlaceholder card={card} lang={lang} />
       )}
     </div>
   );
@@ -62,6 +64,7 @@ export default function Card({
   isFlipped = false,
   isReversed = false,
   size = 'md',
+  lang = 'en',
   onClick,
   showLabel = true,
   positionLabel,
@@ -73,6 +76,8 @@ export default function Card({
     isFlipped   ? 'is-flipped'  : '',
     isReversed  ? 'is-reversed' : '',
   ].filter(Boolean).join(' ');
+
+  const reversedLabel = REVERSED_LABEL[lang] ?? 'Reversed';
 
   return (
     <div className="card-wrapper">
@@ -87,19 +92,19 @@ export default function Card({
         onKeyDown={onClick ? (e) => e.key === 'Enter' && onClick() : undefined}
         aria-label={
           isFlipped
-            ? `${card.nameEn}${isReversed ? ', reversed' : ''}`
+            ? `${getCardName(card, lang)}${isReversed ? ', ' + reversedLabel : ''}`
             : 'Tarot card, face down'
         }
       >
         <div className={innerCls}>
           <CardBack />
-          <CardFace card={card} />
+          <CardFace card={card} lang={lang} />
         </div>
       </div>
       {showLabel && isFlipped && (
         <div className="card-label">
-          <span className="card-label-name">{card.nameEn}</span>
-          {isReversed && <span className="card-label-reversed">Reversed</span>}
+          <span className="card-label-name">{getCardName(card, lang)}</span>
+          {isReversed && <span className="card-label-reversed">{reversedLabel}</span>}
         </div>
       )}
     </div>

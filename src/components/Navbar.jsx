@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useLang } from '../context/LangContext';
+import { UI } from '../i18n/ui';
 
-const LINKS = [
-  { to: '/',        label: 'Home' },
-  { to: '/gallery', label: 'Gallery' },
-  { to: '/draw',    label: 'Draw' },
-  { to: '/spreads', label: 'Spreads' },
-  { to: '/journal', label: 'Journal' },
-];
+const LANG_OPTIONS = ['es', 'en', 'fr'];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const { lang, setLang } = useLang();
+  const nav = UI[lang].nav;
+
+  const LINKS = [
+    { to: '/',        label: nav.home },
+    { to: '/gallery', label: nav.gallery },
+    { to: '/spreads', label: nav.spreads },
+    { to: '/journal', label: nav.journal },
+  ];
 
   return (
     <nav className="navbar">
@@ -31,13 +36,28 @@ export default function Navbar() {
         ))}
       </ul>
 
-      <button
-        className="navbar-burger"
-        aria-label="Toggle menu"
-        onClick={() => setOpen(o => !o)}
-      >
-        {open ? '✕' : '☰'}
-      </button>
+      <div className="navbar-right">
+        <div className="lang-switcher">
+          {LANG_OPTIONS.map(l => (
+            <button
+              key={l}
+              className={`lang-btn${lang === l ? ' lang-btn--active' : ''}`}
+              onClick={() => setLang(l)}
+              aria-label={`Switch to ${l}`}
+            >
+              {l.toUpperCase()}
+            </button>
+          ))}
+        </div>
+
+        <button
+          className="navbar-burger"
+          aria-label="Toggle menu"
+          onClick={() => setOpen(o => !o)}
+        >
+          {open ? '✕' : '☰'}
+        </button>
+      </div>
     </nav>
   );
 }
