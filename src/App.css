@@ -429,6 +429,11 @@ img { display: block; max-width: 100%; }
   align-items: center;
 }
 
+.spread-position--focused .card-container {
+  box-shadow: 0 0 0 2px var(--color-accent-gold), 0 0 14px rgba(201, 168, 76, 0.35);
+  border-radius: var(--card-radius);
+}
+
 .spread-empty-slot {
   width: var(--card-w-sm);
   height: var(--card-h-sm);
