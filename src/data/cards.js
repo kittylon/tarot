@@ -260,76 +260,244 @@ export const MAJOR_ARCANA = [
 
 const MINOR_MEANINGS = {
   wands: {
-    1:  { up: 'A creative spark ignites new ventures and raw potential. Inspiration arrives fully formed, urging you to act.', rev: 'Creative blocks, delays, and lack of motivation stalling new projects. The fire is there but won\'t catch.' },
-    2:  { up: 'Future planning and the first bold step away from familiar shores. You have the world in your hands.', rev: 'Fear of the unknown keeps you rooted. Indecision and reluctance to take the next step.' },
-    3:  { up: 'Expansion, first results, and watching your efforts begin to bear fruit. Ships are coming in.', rev: 'Obstacles ahead delay expected progress. Setbacks and a need to revise plans.' },
-    4:  { up: 'Celebration, community, and the joy of a milestone reached together. A homecoming or festive gathering.', rev: 'Instability at home, tension in community, or a celebration cut short.' },
-    5:  { up: 'Healthy competition, conflict, and the chaos of many competing ideas. Growth through struggle.', rev: 'Avoiding necessary confrontation or inner conflict turning outward destructively.' },
-    6:  { up: 'Victory, public recognition, and the sweet taste of success after effort. Riding in on a wave of acclaim.', rev: 'Delayed success, private victory, or praise that rings hollow.' },
-    7:  { up: 'Perseverance, holding your ground, and defending what you have built against opposition.', rev: 'Giving up under pressure, feeling overwhelmed or unable to maintain your position.' },
-    8:  { up: 'Swift movement, news arriving quickly, and rapid progress toward your goal. Everything accelerates.', rev: 'Delays, miscommunication, and frustrated plans. Energy that moves in the wrong direction.' },
-    9:  { up: 'Resilience and nearing the end of a long struggle. Battered but still standing; one more push required.', rev: 'Paranoia, excessive defensiveness, and exhaustion making it hard to trust others.' },
-    10: { up: 'A heavy burden of responsibility or overcommitment. You carry too much but the destination is near.', rev: 'Collapsing under pressure; finally setting down an unsustainable load.' },
-    11: { up: 'Enthusiastic messages, exploration, and the excitement of a new creative adventure just beginning.', rev: 'Immaturity, scattered energy, and eagerness that outpaces ability.' },
-    12: { up: 'Adventurous action, bold pursuits, and the passion of someone who charges toward their dreams.', rev: 'Recklessness, impulsive decisions, and energy that burns out before reaching the goal.' },
-    13: { up: 'Confidence, warmth, and inspiring leadership rooted in genuine passion and creative vision.', rev: 'Jealousy, short temper, and demanding behavior from someone in authority.' },
-    14: { up: 'Visionary leadership, charisma, and the ability to inspire others toward a bold shared future.', rev: 'Arrogance, impulsiveness, and a leader who dominates rather than empowers.' },
+    1: {
+      en: { up: 'A creative spark ignites new ventures and raw potential. Inspiration arrives fully formed, urging you to act.', rev: "Creative blocks, delays, and lack of motivation stalling new projects. The fire is there but won't catch." },
+      es: { up: 'Una chispa creativa enciende nuevas empresas y potencial puro. La inspiración llega completa, instándote a actuar.', rev: 'Bloqueos creativos, retrasos y falta de motivación que frenan nuevos proyectos. El fuego está ahí pero no prende.' },
+    },
+    2: {
+      en: { up: 'Future planning and the first bold step away from familiar shores. You have the world in your hands.', rev: 'Fear of the unknown keeps you rooted. Indecision and reluctance to take the next step.' },
+      es: { up: 'Planificación futura y el primer paso audaz lejos de las orillas conocidas. Tienes el mundo en tus manos.', rev: 'El miedo a lo desconocido te mantiene enraizado. Indecisión y reticencia a dar el siguiente paso.' },
+    },
+    3: {
+      en: { up: 'Expansion, first results, and watching your efforts begin to bear fruit. Ships are coming in.', rev: 'Obstacles ahead delay expected progress. Setbacks and a need to revise plans.' },
+      es: { up: 'Expansión, primeros resultados y ver cómo tus esfuerzos empiezan a dar frutos. Los barcos están llegando.', rev: 'Obstáculos por delante retrasan el progreso esperado. Contratiempos y necesidad de revisar los planes.' },
+    },
+    4: {
+      en: { up: 'Celebration, community, and the joy of a milestone reached together. A homecoming or festive gathering.', rev: 'Instability at home, tension in community, or a celebration cut short.' },
+      es: { up: 'Celebración, comunidad y la alegría de un hito alcanzado juntos. Un regreso al hogar o una reunión festiva.', rev: 'Inestabilidad en el hogar, tensión en la comunidad o una celebración interrumpida.' },
+    },
+    5: {
+      en: { up: 'Healthy competition, conflict, and the chaos of many competing ideas. Growth through struggle.', rev: 'Avoiding necessary confrontation or inner conflict turning outward destructively.' },
+      es: { up: 'Competencia sana, conflicto y el caos de muchas ideas que compiten. Crecimiento a través de la lucha.', rev: 'Evitar la confrontación necesaria o el conflicto interno que se vuelve destructivo hacia afuera.' },
+    },
+    6: {
+      en: { up: 'Victory, public recognition, and the sweet taste of success after effort. Riding in on a wave of acclaim.', rev: 'Delayed success, private victory, or praise that rings hollow.' },
+      es: { up: 'Victoria, reconocimiento público y el dulce sabor del éxito tras el esfuerzo. Llegando en una ola de aclamación.', rev: 'Éxito retrasado, victoria privada o elogios que suenan vacíos.' },
+    },
+    7: {
+      en: { up: 'Perseverance, holding your ground, and defending what you have built against opposition.', rev: 'Giving up under pressure, feeling overwhelmed or unable to maintain your position.' },
+      es: { up: 'Perseverancia, mantener tu posición y defender lo que has construido ante la oposición.', rev: 'Rendirse bajo presión, sentirse abrumado o incapaz de mantener tu posición.' },
+    },
+    8: {
+      en: { up: 'Swift movement, news arriving quickly, and rapid progress toward your goal. Everything accelerates.', rev: 'Delays, miscommunication, and frustrated plans. Energy that moves in the wrong direction.' },
+      es: { up: 'Movimiento veloz, noticias que llegan rápido y progreso acelerado hacia tu meta. Todo se acelera.', rev: 'Retrasos, malentendidos y planes frustrados. Energía que va en la dirección equivocada.' },
+    },
+    9: {
+      en: { up: 'Resilience and nearing the end of a long struggle. Battered but still standing; one more push required.', rev: 'Paranoia, excessive defensiveness, and exhaustion making it hard to trust others.' },
+      es: { up: 'Resiliencia y cerca del final de una larga lucha. Golpeado pero de pie; se requiere un último esfuerzo.', rev: 'Paranoia, defensividad excesiva y agotamiento que dificulta confiar en los demás.' },
+    },
+    10: {
+      en: { up: 'A heavy burden of responsibility or overcommitment. You carry too much but the destination is near.', rev: 'Collapsing under pressure; finally setting down an unsustainable load.' },
+      es: { up: 'Una pesada carga de responsabilidad o exceso de compromisos. Llevas demasiado pero el destino está cerca.', rev: 'Derrumbarse bajo la presión; finalmente dejar caer una carga insostenible.' },
+    },
+    11: {
+      en: { up: 'Enthusiastic messages, exploration, and the excitement of a new creative adventure just beginning.', rev: 'Immaturity, scattered energy, and eagerness that outpaces ability.' },
+      es: { up: 'Mensajes entusiastas, exploración y la emoción de una nueva aventura creativa que apenas comienza.', rev: 'Inmadurez, energía dispersa y entusiasmo que supera la habilidad.' },
+    },
+    12: {
+      en: { up: 'Adventurous action, bold pursuits, and the passion of someone who charges toward their dreams.', rev: 'Recklessness, impulsive decisions, and energy that burns out before reaching the goal.' },
+      es: { up: 'Acción aventurera, búsquedas audaces y la pasión de alguien que carga hacia sus sueños.', rev: 'Imprudencia, decisiones impulsivas y energía que se agota antes de alcanzar la meta.' },
+    },
+    13: {
+      en: { up: 'Confidence, warmth, and inspiring leadership rooted in genuine passion and creative vision.', rev: 'Jealousy, short temper, and demanding behavior from someone in authority.' },
+      es: { up: 'Confianza, calidez y liderazgo inspirador enraizado en la pasión genuina y la visión creativa.', rev: 'Celos, mal genio y comportamiento exigente de alguien en posición de autoridad.' },
+    },
+    14: {
+      en: { up: 'Visionary leadership, charisma, and the ability to inspire others toward a bold shared future.', rev: 'Arrogance, impulsiveness, and a leader who dominates rather than empowers.' },
+      es: { up: 'Liderazgo visionario, carisma y la capacidad de inspirar a otros hacia un futuro compartido audaz.', rev: 'Arrogancia, impulsividad y un líder que domina en vez de empoderar.' },
+    },
   },
   cups: {
-    1:  { up: 'A new love, emotional gift, or creative outpouring. The cup overflows with unexplored feelings.', rev: 'Emotional blocks, feeling empty, or an offer of love refused or unexpressed.' },
-    2:  { up: 'Partnership, mutual love, and the joy of genuine reciprocity. Two hearts in alignment.', rev: 'Imbalance, one-sided love, or a partnership falling out of harmony.' },
-    3:  { up: 'Friendship, celebration, and the pleasure of shared joy. Community and emotional abundance.', rev: 'Overindulgence, gossip, and superficial socializing that drains rather than fills.' },
-    4:  { up: 'Contemplation, apathy, and a period of withdrawal. A new opportunity arrives but is not yet seen.', rev: 'Missed opportunities, depression lifting, or finally reaching out after isolation.' },
-    5:  { up: 'Loss, grief, and regret over what has been spilled. Three cups lie fallen but two still stand behind you.', rev: 'Moving forward from loss, finding acceptance, and turning toward what remains.' },
-    6:  { up: 'Nostalgia, childhood memories, and simple pleasures. A gift from the past returned with warmth.', rev: 'Living in the past, naivety, or an idealised memory that prevents present joy.' },
-    7:  { up: 'Fantasy, illusion, and too many choices clouding reality. Wish-fulfillment without grounded action.', rev: 'Clarity emerging from confusion, decisive action after deliberation.' },
-    8:  { up: 'Walking away from what no longer serves you in search of something more meaningful.', rev: 'Fear of moving on, returning to what you outgrew, or staying for the wrong reasons.' },
-    9:  { up: 'The wish card. Deep satisfaction, contentment, and wishes fulfilled. Emotional and material pleasure.', rev: 'Overindulgence, dissatisfaction despite plenty, or wishes that bring unexpected consequences.' },
-    10: { up: 'Emotional fulfillment, harmony, and lasting happiness with family and loved ones. A blessed home.', rev: 'Dysfunction beneath the surface, broken family bonds, or happiness that feels forced.' },
-    11: { up: 'Intuitive messages, emotional sensitivity, and an openness to creative and psychic impressions.', rev: 'Emotional immaturity, moodiness, and an overactive imagination mistaken for intuition.' },
-    12: { up: 'Romantic pursuit, idealism, and the passionate quest for the perfect love or vision.', rev: 'Moodiness, unrealistic expectations, and romantic gestures that drift into manipulation.' },
-    13: { up: 'Profound empathy, psychic gifts, and emotional wisdom that flows from deep inner knowing.', rev: 'Emotional manipulation, martyrdom, and using vulnerability as a tool for control.' },
-    14: { up: 'Emotional mastery, diplomatic wisdom, and a calm authority rooted in genuine compassion.', rev: 'Moodiness, manipulation, and using emotional intelligence to exploit others.' },
+    1: {
+      en: { up: 'A new love, emotional gift, or creative outpouring. The cup overflows with unexplored feelings.', rev: 'Emotional blocks, feeling empty, or an offer of love refused or unexpressed.' },
+      es: { up: 'Un nuevo amor, un don emocional o un derramamiento creativo. La copa rebosa de sentimientos inexplorados.', rev: 'Bloqueos emocionales, sentirse vacío o una oferta de amor rechazada o no expresada.' },
+    },
+    2: {
+      en: { up: 'Partnership, mutual love, and the joy of genuine reciprocity. Two hearts in alignment.', rev: 'Imbalance, one-sided love, or a partnership falling out of harmony.' },
+      es: { up: 'Asociación, amor mutuo y la alegría de la reciprocidad genuina. Dos corazones en sintonía.', rev: 'Desequilibrio, amor unilateral o una relación que pierde armonía.' },
+    },
+    3: {
+      en: { up: 'Friendship, celebration, and the pleasure of shared joy. Community and emotional abundance.', rev: 'Overindulgence, gossip, and superficial socializing that drains rather than fills.' },
+      es: { up: 'Amistad, celebración y el placer de la alegría compartida. Comunidad y abundancia emocional.', rev: 'Exceso, chismes y socialización superficial que agota en vez de llenar.' },
+    },
+    4: {
+      en: { up: 'Contemplation, apathy, and a period of withdrawal. A new opportunity arrives but is not yet seen.', rev: 'Missed opportunities, depression lifting, or finally reaching out after isolation.' },
+      es: { up: 'Contemplación, apatía y un período de retraimiento. Una nueva oportunidad llega pero aún no se ve.', rev: 'Oportunidades perdidas, depresión que se levanta o finalmente tender la mano tras el aislamiento.' },
+    },
+    5: {
+      en: { up: 'Loss, grief, and regret over what has been spilled. Three cups lie fallen but two still stand behind you.', rev: 'Moving forward from loss, finding acceptance, and turning toward what remains.' },
+      es: { up: 'Pérdida, duelo y remordimiento por lo que se ha derramado. Tres copas caídas pero dos aún están de pie detrás de ti.', rev: 'Avanzar tras la pérdida, encontrar la aceptación y girarse hacia lo que queda.' },
+    },
+    6: {
+      en: { up: 'Nostalgia, childhood memories, and simple pleasures. A gift from the past returned with warmth.', rev: 'Living in the past, naivety, or an idealised memory that prevents present joy.' },
+      es: { up: 'Nostalgia, recuerdos de infancia y placeres simples. Un regalo del pasado devuelto con calidez.', rev: 'Vivir en el pasado, ingenuidad o un recuerdo idealizado que impide la alegría presente.' },
+    },
+    7: {
+      en: { up: 'Fantasy, illusion, and too many choices clouding reality. Wish-fulfillment without grounded action.', rev: 'Clarity emerging from confusion, decisive action after deliberation.' },
+      es: { up: 'Fantasía, ilusión y demasiadas opciones que nublan la realidad. Deseos sin acción concreta.', rev: 'Claridad emergiendo de la confusión, acción decisiva tras la deliberación.' },
+    },
+    8: {
+      en: { up: 'Walking away from what no longer serves you in search of something more meaningful.', rev: 'Fear of moving on, returning to what you outgrew, or staying for the wrong reasons.' },
+      es: { up: 'Alejarse de lo que ya no te sirve en busca de algo más significativo.', rev: 'Miedo a seguir adelante, regresar a lo que ya superaste o quedarte por las razones equivocadas.' },
+    },
+    9: {
+      en: { up: 'The wish card. Deep satisfaction, contentment, and wishes fulfilled. Emotional and material pleasure.', rev: 'Overindulgence, dissatisfaction despite plenty, or wishes that bring unexpected consequences.' },
+      es: { up: 'La carta del deseo. Profunda satisfacción, contentamiento y deseos cumplidos. Placer emocional y material.', rev: 'Exceso, insatisfacción a pesar de la abundancia o deseos que traen consecuencias inesperadas.' },
+    },
+    10: {
+      en: { up: 'Emotional fulfillment, harmony, and lasting happiness with family and loved ones. A blessed home.', rev: 'Dysfunction beneath the surface, broken family bonds, or happiness that feels forced.' },
+      es: { up: 'Plenitud emocional, armonía y felicidad duradera con la familia y los seres queridos. Un hogar bendecido.', rev: 'Disfunción bajo la superficie, vínculos familiares rotos o felicidad que parece forzada.' },
+    },
+    11: {
+      en: { up: 'Intuitive messages, emotional sensitivity, and an openness to creative and psychic impressions.', rev: 'Emotional immaturity, moodiness, and an overactive imagination mistaken for intuition.' },
+      es: { up: 'Mensajes intuitivos, sensibilidad emocional y apertura a impresiones creativas y psíquicas.', rev: 'Inmadurez emocional, malhumor e imaginación sobreactiva confundida con intuición.' },
+    },
+    12: {
+      en: { up: 'Romantic pursuit, idealism, and the passionate quest for the perfect love or vision.', rev: 'Moodiness, unrealistic expectations, and romantic gestures that drift into manipulation.' },
+      es: { up: 'Búsqueda romántica, idealismo y la apasionada conquista del amor perfecto o la visión ideal.', rev: 'Malhumor, expectativas poco realistas y gestos románticos que derivan en manipulación.' },
+    },
+    13: {
+      en: { up: 'Profound empathy, psychic gifts, and emotional wisdom that flows from deep inner knowing.', rev: 'Emotional manipulation, martyrdom, and using vulnerability as a tool for control.' },
+      es: { up: 'Empatía profunda, dones psíquicos y sabiduría emocional que fluye de un conocimiento interior profundo.', rev: 'Manipulación emocional, martirio y el uso de la vulnerabilidad como herramienta de control.' },
+    },
+    14: {
+      en: { up: 'Emotional mastery, diplomatic wisdom, and a calm authority rooted in genuine compassion.', rev: 'Moodiness, manipulation, and using emotional intelligence to exploit others.' },
+      es: { up: 'Maestría emocional, sabiduría diplomática y una autoridad tranquila enraizada en la compasión genuina.', rev: 'Malhumor, manipulación y uso de la inteligencia emocional para explotar a los demás.' },
+    },
   },
   swords: {
-    1:  { up: 'Mental clarity, a breakthrough, and the sword of truth cutting through confusion to reveal the way forward.', rev: 'Confusion, cruelty, and a sharp intellect turned destructively inward or outward.' },
-    2:  { up: 'A stalemate or difficult choice that requires careful deliberation. Balanced tension seeking resolution.', rev: 'The stalemate breaks, often painfully. Indecision finally forced to a conclusion.' },
-    3:  { up: 'Heartbreak, grief, and the pain of loss. Three swords pierce the heart — truth that hurts is still truth.', rev: 'Recovery from pain, releasing grief, and the slow return of hope after heartbreak.' },
-    4:  { up: 'Rest, recuperation, and the wisdom of strategic retreat. A peaceful pause before the next challenge.', rev: 'Restlessness, inability to rest, and anxiety preventing necessary recovery.' },
-    5:  { up: 'Conflict, defeat, and the hollow taste of a victory won at too high a cost. Choose your battles.', rev: 'Reconciliation, moving past conflict, or acknowledging that no one truly won.' },
-    6:  { up: 'Transition, moving on, and leaving troubled waters behind. A calmer future lies ahead.', rev: 'Resistance to necessary change, unresolved baggage, or a journey delayed.' },
-    7:  { up: 'Strategy, cunning, and the lone wolf approach. Tactical thinking, but at risk of deception.', rev: 'Confession, returning what was taken, and the consequences of past deceptions catching up.' },
-    8:  { up: 'Restriction, self-imprisonment, and the belief that you have no options. The blindfold is self-imposed.', rev: 'Breaking free from limiting beliefs and seeing the escape route that was always there.' },
-    9:  { up: 'Anxiety, nightmares, and the suffering that comes from dwelling on worst-case scenarios in the dark.', rev: 'Coming out of despair, inner work healing anxiety, and finding that fears were exaggerated.' },
-    10: { up: 'A painful ending, betrayal, or the lowest point of a cycle. Rock bottom — but only one direction remains.', rev: 'Recovery begins; the worst is over and a slow healing process can now commence.' },
-    11: { up: 'New ideas, curiosity, and the sharp mind of a student eager to learn and explore every angle.', rev: 'Deception, gossip, and sharp words used carelessly without regard for consequences.' },
-    12: { up: 'Decisive intellectual action, charged forward momentum, and the pursuit of truth at any cost.', rev: 'Aggression, rushing into conflict, and a sharp tongue that cuts deeper than intended.' },
-    13: { up: 'Clear-minded independence, direct communication, and the courage to speak an uncomfortable truth.', rev: 'Coldness, cruelty, and the intellect weaponised against those in a vulnerable position.' },
-    14: { up: 'Intellectual authority, clear judgment, and the ability to make difficult decisions with impartiality.', rev: 'Tyranny, abuse of power, and a ruthless intelligence serving selfish ends.' },
+    1: {
+      en: { up: 'Mental clarity, a breakthrough, and the sword of truth cutting through confusion to reveal the way forward.', rev: 'Confusion, cruelty, and a sharp intellect turned destructively inward or outward.' },
+      es: { up: 'Claridad mental, un avance y la espada de la verdad que corta la confusión para revelar el camino.', rev: 'Confusión, crueldad e intelecto agudo vuelto destructivamente hacia adentro o hacia afuera.' },
+    },
+    2: {
+      en: { up: 'A stalemate or difficult choice that requires careful deliberation. Balanced tension seeking resolution.', rev: 'The stalemate breaks, often painfully. Indecision finally forced to a conclusion.' },
+      es: { up: 'Un punto muerto o una elección difícil que requiere deliberación cuidadosa. Tensión equilibrada que busca resolución.', rev: 'El punto muerto se rompe, a menudo dolorosamente. La indecisión finalmente se ve forzada a una conclusión.' },
+    },
+    3: {
+      en: { up: 'Heartbreak, grief, and the pain of loss. Three swords pierce the heart — truth that hurts is still truth.', rev: 'Recovery from pain, releasing grief, and the slow return of hope after heartbreak.' },
+      es: { up: 'Desamor, duelo y el dolor de la pérdida. Tres espadas perforan el corazón — la verdad que duele sigue siendo verdad.', rev: 'Recuperación del dolor, liberación del duelo y el lento retorno de la esperanza tras el desamor.' },
+    },
+    4: {
+      en: { up: 'Rest, recuperation, and the wisdom of strategic retreat. A peaceful pause before the next challenge.', rev: 'Restlessness, inability to rest, and anxiety preventing necessary recovery.' },
+      es: { up: 'Descanso, recuperación y la sabiduría del retiro estratégico. Una pausa tranquila antes del próximo desafío.', rev: 'Inquietud, incapacidad para descansar y ansiedad que impide la recuperación necesaria.' },
+    },
+    5: {
+      en: { up: 'Conflict, defeat, and the hollow taste of a victory won at too high a cost. Choose your battles.', rev: 'Reconciliation, moving past conflict, or acknowledging that no one truly won.' },
+      es: { up: 'Conflicto, derrota y el sabor amargo de una victoria ganada a un costo demasiado alto. Elige tus batallas.', rev: 'Reconciliación, superar el conflicto o reconocer que nadie ganó realmente.' },
+    },
+    6: {
+      en: { up: 'Transition, moving on, and leaving troubled waters behind. A calmer future lies ahead.', rev: 'Resistance to necessary change, unresolved baggage, or a journey delayed.' },
+      es: { up: 'Transición, seguir adelante y dejar las aguas turbulentas atrás. Un futuro más tranquilo espera.', rev: 'Resistencia al cambio necesario, equipaje sin resolver o un viaje retrasado.' },
+    },
+    7: {
+      en: { up: 'Strategy, cunning, and the lone wolf approach. Tactical thinking, but at risk of deception.', rev: 'Confession, returning what was taken, and the consequences of past deceptions catching up.' },
+      es: { up: 'Estrategia, astucia y el enfoque del lobo solitario. Pensamiento táctico, pero con riesgo de engaño.', rev: 'Confesión, devolver lo que fue tomado y las consecuencias de engaños pasados que alcanzan al presente.' },
+    },
+    8: {
+      en: { up: 'Restriction, self-imprisonment, and the belief that you have no options. The blindfold is self-imposed.', rev: 'Breaking free from limiting beliefs and seeing the escape route that was always there.' },
+      es: { up: 'Restricción, autoencierro y la creencia de no tener opciones. La venda en los ojos es autoimpuesta.', rev: 'Liberarse de creencias limitantes y ver la salida que siempre estuvo ahí.' },
+    },
+    9: {
+      en: { up: 'Anxiety, nightmares, and the suffering that comes from dwelling on worst-case scenarios in the dark.', rev: 'Coming out of despair, inner work healing anxiety, and finding that fears were exaggerated.' },
+      es: { up: 'Ansiedad, pesadillas y el sufrimiento que viene de pensar en los peores escenarios en la oscuridad.', rev: 'Salir de la desesperación, el trabajo interior que sana la ansiedad y descubrir que los miedos estaban exagerados.' },
+    },
+    10: {
+      en: { up: 'A painful ending, betrayal, or the lowest point of a cycle. Rock bottom — but only one direction remains.', rev: 'Recovery begins; the worst is over and a slow healing process can now commence.' },
+      es: { up: 'Un final doloroso, traición o el punto más bajo de un ciclo. Fondo — pero solo queda una dirección.', rev: 'La recuperación comienza; lo peor ha pasado y un lento proceso de sanación puede comenzar.' },
+    },
+    11: {
+      en: { up: 'New ideas, curiosity, and the sharp mind of a student eager to learn and explore every angle.', rev: 'Deception, gossip, and sharp words used carelessly without regard for consequences.' },
+      es: { up: 'Nuevas ideas, curiosidad y la mente aguda de un estudiante ansioso por aprender y explorar cada ángulo.', rev: 'Engaño, chismes y palabras afiladas usadas descuidadamente sin consideración por las consecuencias.' },
+    },
+    12: {
+      en: { up: 'Decisive intellectual action, charged forward momentum, and the pursuit of truth at any cost.', rev: 'Aggression, rushing into conflict, and a sharp tongue that cuts deeper than intended.' },
+      es: { up: 'Acción intelectual decisiva, impulso hacia adelante cargado y la búsqueda de la verdad a cualquier costo.', rev: 'Agresión, precipitarse al conflicto y una lengua afilada que corta más profundo de lo previsto.' },
+    },
+    13: {
+      en: { up: 'Clear-minded independence, direct communication, and the courage to speak an uncomfortable truth.', rev: 'Coldness, cruelty, and the intellect weaponised against those in a vulnerable position.' },
+      es: { up: 'Independencia de mente clara, comunicación directa y el coraje de decir una verdad incómoda.', rev: 'Frialdad, crueldad e intelecto convertido en arma contra quienes están en posición vulnerable.' },
+    },
+    14: {
+      en: { up: 'Intellectual authority, clear judgment, and the ability to make difficult decisions with impartiality.', rev: 'Tyranny, abuse of power, and a ruthless intelligence serving selfish ends.' },
+      es: { up: 'Autoridad intelectual, juicio claro y la capacidad de tomar decisiones difíciles con imparcialidad.', rev: 'Tiranía, abuso de poder e inteligencia despiadada al servicio de fines egoístas.' },
+    },
   },
   pentacles: {
-    1:  { up: 'Manifestation, a financial gift, or the seed of a prosperous new venture planted in fertile ground.', rev: 'A lost opportunity, poor financial planning, or a gift misused before it can grow.' },
-    2:  { up: 'Balance, adaptability, and the skill of keeping multiple priorities in the air at once. Juggle with grace.', rev: 'Disorganisation, financial stress, and the collapse of a precarious balance.' },
-    3:  { up: 'Teamwork, skilled craftsmanship, and the satisfaction of building something of lasting quality together.', rev: 'Poor collaboration, shoddy work, and a team pulling in different directions.' },
-    4:  { up: 'Security, financial prudence, and the stability that comes from holding tightly to what you have earned.', rev: 'Financial loss through greed, excessive hoarding, or losing what you refused to share.' },
-    5:  { up: 'Financial hardship, isolation, and the cold outside a warmth you feel excluded from. Help is near.', rev: 'Recovery begins; the worst of the material hardship is passing and support is found.' },
-    6:  { up: 'Generosity, balanced giving and receiving, and the flow of resources moving where they are needed.', rev: 'Strings attached to generosity, power imbalances in charity, or debts used as control.' },
-    7:  { up: 'Patient assessment of your harvest; you are halfway there. Pause to measure progress before continuing.', rev: 'Impatience, giving up before the harvest, and poor returns on sustained effort.' },
-    8:  { up: 'Diligent skill-building, dedication to craft, and the quiet satisfaction of mastery through repetition.', rev: 'Lack of focus, cutting corners, and the gap between ambition and commitment to practice.' },
-    9:  { up: 'Abundance, hard-won luxury, and the graceful self-sufficiency of someone who has earned their comfort.', rev: 'Overindulgence, superficiality, and luxury that masks inner emptiness.' },
-    10: { up: 'Legacy, long-term wealth, and the deep fulfillment of building something that will outlast you.', rev: 'Financial failure, family conflict over resources, or a legacy left in ruin.' },
-    11: { up: 'A practical student of abundance, beginning to understand the material world through careful observation.', rev: 'Procrastination, materialism without substance, and getting lost in the pursuit of things.' },
-    12: { up: 'Methodical, reliable, and patient. Progress is slow but steady; results are built to last.', rev: 'Stubbornness, tunnel vision, and a refusal to adapt even when the situation demands it.' },
-    13: { up: 'Nurturing abundance, practical wisdom, and the grounded generosity of someone connected to the earth.', rev: 'Financial insecurity, smothering nurture, and a practical nature curdled into materialism.' },
-    14: { up: 'Established wealth, financial authority, and the wisdom to steward resources for lasting prosperity.', rev: 'Greed, corruption, and the hoarding of power and money at the expense of others.' },
+    1: {
+      en: { up: 'Manifestation, a financial gift, or the seed of a prosperous new venture planted in fertile ground.', rev: 'A lost opportunity, poor financial planning, or a gift misused before it can grow.' },
+      es: { up: 'Manifestación, un don financiero o la semilla de una nueva empresa próspera plantada en terreno fértil.', rev: 'Una oportunidad perdida, mala planificación financiera o un don mal usado antes de poder crecer.' },
+    },
+    2: {
+      en: { up: 'Balance, adaptability, and the skill of keeping multiple priorities in the air at once. Juggle with grace.', rev: 'Disorganisation, financial stress, and the collapse of a precarious balance.' },
+      es: { up: 'Equilibrio, adaptabilidad y la habilidad de mantener varias prioridades al mismo tiempo. Malabarear con gracia.', rev: 'Desorganización, estrés financiero y el colapso de un equilibrio precario.' },
+    },
+    3: {
+      en: { up: 'Teamwork, skilled craftsmanship, and the satisfaction of building something of lasting quality together.', rev: 'Poor collaboration, shoddy work, and a team pulling in different directions.' },
+      es: { up: 'Trabajo en equipo, artesanía experta y la satisfacción de construir algo de calidad duradera juntos.', rev: 'Mala colaboración, trabajo descuidado y un equipo que tira en diferentes direcciones.' },
+    },
+    4: {
+      en: { up: 'Security, financial prudence, and the stability that comes from holding tightly to what you have earned.', rev: 'Financial loss through greed, excessive hoarding, or losing what you refused to share.' },
+      es: { up: 'Seguridad, prudencia financiera y la estabilidad que viene de aferrarse firmemente a lo que has ganado.', rev: 'Pérdida financiera por codicia, acumulación excesiva o perder lo que te negaste a compartir.' },
+    },
+    5: {
+      en: { up: 'Financial hardship, isolation, and the cold outside a warmth you feel excluded from. Help is near.', rev: 'Recovery begins; the worst of the material hardship is passing and support is found.' },
+      es: { up: 'Dificultades económicas, aislamiento y el frío fuera de un calor del que te sientes excluido. La ayuda está cerca.', rev: 'La recuperación comienza; lo peor de la dificultad material está pasando y se encuentra apoyo.' },
+    },
+    6: {
+      en: { up: 'Generosity, balanced giving and receiving, and the flow of resources moving where they are needed.', rev: 'Strings attached to generosity, power imbalances in charity, or debts used as control.' },
+      es: { up: 'Generosidad, dar y recibir de forma equilibrada y el flujo de recursos que se mueven donde se necesitan.', rev: 'Generosidad con condiciones, desequilibrios de poder en la caridad o deudas usadas como control.' },
+    },
+    7: {
+      en: { up: 'Patient assessment of your harvest; you are halfway there. Pause to measure progress before continuing.', rev: 'Impatience, giving up before the harvest, and poor returns on sustained effort.' },
+      es: { up: 'Evaluación paciente de tu cosecha; estás a mitad de camino. Pausa para medir el progreso antes de continuar.', rev: 'Impaciencia, rendirse antes de la cosecha y rendimientos pobres a pesar del esfuerzo sostenido.' },
+    },
+    8: {
+      en: { up: 'Diligent skill-building, dedication to craft, and the quiet satisfaction of mastery through repetition.', rev: 'Lack of focus, cutting corners, and the gap between ambition and commitment to practice.' },
+      es: { up: 'Desarrollo de habilidades diligente, dedicación al oficio y la satisfacción tranquila del dominio a través de la repetición.', rev: 'Falta de enfoque, atajos y la brecha entre la ambición y el compromiso con la práctica.' },
+    },
+    9: {
+      en: { up: 'Abundance, hard-won luxury, and the graceful self-sufficiency of someone who has earned their comfort.', rev: 'Overindulgence, superficiality, and luxury that masks inner emptiness.' },
+      es: { up: 'Abundancia, lujo bien ganado y la elegante autosuficiencia de alguien que se ha ganado su comodidad.', rev: 'Exceso, superficialidad y lujo que enmascara el vacío interior.' },
+    },
+    10: {
+      en: { up: 'Legacy, long-term wealth, and the deep fulfillment of building something that will outlast you.', rev: 'Financial failure, family conflict over resources, or a legacy left in ruin.' },
+      es: { up: 'Legado, riqueza a largo plazo y la profunda satisfacción de construir algo que te sobrevivirá.', rev: 'Fracaso financiero, conflicto familiar por recursos o un legado dejado en ruinas.' },
+    },
+    11: {
+      en: { up: 'A practical student of abundance, beginning to understand the material world through careful observation.', rev: 'Procrastination, materialism without substance, and getting lost in the pursuit of things.' },
+      es: { up: 'Un estudiante práctico de la abundancia, comenzando a entender el mundo material a través de la observación cuidadosa.', rev: 'Procrastinación, materialismo sin sustancia y perderse en la búsqueda de cosas.' },
+    },
+    12: {
+      en: { up: 'Methodical, reliable, and patient. Progress is slow but steady; results are built to last.', rev: 'Stubbornness, tunnel vision, and a refusal to adapt even when the situation demands it.' },
+      es: { up: 'Metódico, confiable y paciente. El progreso es lento pero constante; los resultados están hechos para durar.', rev: 'Terquedad, visión de túnel y rechazo a adaptarse incluso cuando la situación lo exige.' },
+    },
+    13: {
+      en: { up: 'Nurturing abundance, practical wisdom, and the grounded generosity of someone connected to the earth.', rev: 'Financial insecurity, smothering nurture, and a practical nature curdled into materialism.' },
+      es: { up: 'Abundancia nutritiva, sabiduría práctica y la generosidad enraizada de alguien conectado a la tierra.', rev: 'Inseguridad financiera, crianza sofocante y una naturaleza práctica convertida en materialismo.' },
+    },
+    14: {
+      en: { up: 'Established wealth, financial authority, and the wisdom to steward resources for lasting prosperity.', rev: 'Greed, corruption, and the hoarding of power and money at the expense of others.' },
+      es: { up: 'Riqueza establecida, autoridad financiera y la sabiduría de administrar recursos para una prosperidad duradera.', rev: 'Codicia, corrupción y acaparamiento de poder y dinero a expensas de los demás.' },
+    },
   },
 };
 
 const SUIT_LABEL = {
-  wands:     { fr: 'Bâton',  en: 'Wands' },
-  cups:      { fr: 'Coupe',  en: 'Cups' },
-  swords:    { fr: 'Épée',   en: 'Swords' },
-  pentacles: { fr: 'Denier', en: 'Pentacles' },
+  wands:     { fr: 'Bâton',  en: 'Wands',      es: 'Bastos' },
+  cups:      { fr: 'Coupe',  en: 'Cups',        es: 'Copas' },
+  swords:    { fr: 'Épée',   en: 'Swords',      es: 'Espadas' },
+  pentacles: { fr: 'Denier', en: 'Pentacles',   es: 'Oros' },
 };
 
 const RANK_FR = {
@@ -342,6 +510,12 @@ const RANK_EN = {
   1: 'Ace', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
   6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine', 10: 'Ten',
   11: 'Page', 12: 'Knight', 13: 'Queen', 14: 'King',
+};
+
+const RANK_ES = {
+  1: 'As', 2: 'Dos', 3: 'Tres', 4: 'Cuatro', 5: 'Cinco',
+  6: 'Seis', 7: 'Siete', 8: 'Ocho', 9: 'Nueve', 10: 'Diez',
+  11: 'Sota', 12: 'Caballo', 13: 'Reina', 14: 'Rey',
 };
 
 const RANK_ID = {
@@ -361,19 +535,24 @@ function makeMinorCard(suit, rank) {
   const meanings = MINOR_MEANINGS[suit][rank];
   const suitLabelFr = SUIT_LABEL[suit].fr;
   const suitLabelEn = SUIT_LABEL[suit].en;
+  const suitLabelEs = SUIT_LABEL[suit].es;
   const rankFr = RANK_FR[rank];
   const rankEn = RANK_EN[rank];
+  const rankEs = RANK_ES[rank];
 
-  let nameFr, nameEn;
+  let nameFr, nameEn, nameEs;
   if (rank === 1) {
     nameFr = `As de ${suitLabelFr}s`;
     nameEn = `Ace of ${suitLabelEn}`;
+    nameEs = `As de ${suitLabelEs}`;
   } else if (rank <= 10) {
     nameFr = `${rankFr} de ${suitLabelFr}s`;
     nameEn = `${rankEn} of ${suitLabelEn}`;
+    nameEs = `${rankEs} de ${suitLabelEs}`;
   } else {
     nameFr = `${rankFr} de ${suitLabelFr}`;
     nameEn = `${rankEn} of ${suitLabelEn}`;
+    nameEs = `${rankEs} de ${suitLabelEs}`;
   }
 
   const keywords = {
@@ -388,11 +567,11 @@ function makeMinorCard(suit, rank) {
     number: rank,
     name: nameFr,
     nameEn,
+    nameEs,
     arcana: 'minor',
     suit,
     romanNumeral: null,
-    uprightMeaning: meanings.up,
-    reversedMeaning: meanings.rev,
+    meanings,
     keywords,
     wikimediaFile: MINOR_WIKI[id] || null,
   };
@@ -439,7 +618,7 @@ export function drawMultiple(count, deck = ALL_CARDS) {
 
 // ─── Multilingual helpers ─────────────────────────────────────────────────────
 
-// Returns card meaning in the requested language (Major Arcana: ES/FR/EN; Minor: EN only)
+// Returns card meaning in the requested language (ES/FR/EN for all 78 cards)
 export function getMeaning(card, lang, isReversed) {
   if (card.meanings) {
     const m = card.meanings[lang] || card.meanings.en;
