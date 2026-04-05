@@ -19,6 +19,7 @@ export default function Spreads() {
   const [majorOnly,       setMajorOnly]       = useState(false);
   const [intention,       setIntention]       = useState('');
   const [notebookEntries, setNotebookEntries] = useState([]);
+  const [focusedSlotIndex, setFocusedSlotIndex] = useState(null);
   const [showSummary,     setShowSummary]     = useState(false);
 
   function handleSpreadSelect(spreadId) {
@@ -34,16 +35,25 @@ export default function Spreads() {
     setSelectedSpread(spread);
     setIntention(intentionText);
     setNotebookEntries([]);
+    setFocusedSlotIndex(null);
     setShowSummary(false);
     setPhase('reading');
   }
 
-  function revealCard(index) {
+  function handleSlotClick(index) {
     const entry = drawnCards[index];
-    if (entry.isFlipped) return;
+    if (!entry) return;
+    if (entry.isFlipped) {
+      setFocusedSlotIndex(index);
+      return;
+    }
     const pos = selectedSpread.positions[index];
     setDrawnCards(prev => prev.map((d, i) => i === index ? { ...d, isFlipped: true } : d));
-    setNotebookEntries(nb => [...nb, { card: entry.card, isReversed: entry.isReversed, pos }]);
+    setNotebookEntries(nb => [
+      ...nb,
+      { card: entry.card, isReversed: entry.isReversed, pos, positionIndex: index },
+    ]);
+    setFocusedSlotIndex(index);
   }
 
   function resetReading() {
@@ -51,6 +61,7 @@ export default function Spreads() {
     setSelectedSpread(null);
     setDrawnCards([]);
     setNotebookEntries([]);
+    setFocusedSlotIndex(null);
     setIntention('');
     setPendingSpread(null);
     setShowSummary(false);
@@ -107,7 +118,11 @@ export default function Spreads() {
   // ── Lectura activa ───────────────────────────────────────────────────────────
   const allFlipped    = drawnCards.length > 0 && drawnCards.every(d => d.isFlipped);
   const revealedCount = drawnCards.filter(d => d.isFlipped).length;
-  const lastEntry     = notebookEntries[notebookEntries.length - 1] || null;
+  const panelEntry =
+    (focusedSlotIndex !== null &&
+      notebookEntries.find(e => e.positionIndex === focusedSlotIndex)) ||
+    notebookEntries[notebookEntries.length - 1] ||
+    null;
 
   return (
     <div className="page-content">
@@ -181,26 +196,27 @@ export default function Spreads() {
                 <SpreadLayout
                   spread={selectedSpread}
                   drawnCards={drawnCards}
-                  onPositionClick={revealCard}
+                  onPositionClick={handleSlotClick}
+                  focusedSlotIndex={focusedSlotIndex}
                   lang={lang}
                 />
 
-                {lastEntry && (
+                {panelEntry && (
                   <div className="spread-revealed-panel">
-                    <div className="spread-revealed-pos">{getPositionLabel(lastEntry.pos, lang)}</div>
-                    {getPositionDescription(lastEntry.pos, lang) && (
+                    <div className="spread-revealed-pos">{getPositionLabel(panelEntry.pos, lang)}</div>
+                    {getPositionDescription(panelEntry.pos, lang) && (
                       <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', fontStyle: 'italic', lineHeight: 1.6, marginBottom: 'var(--space-md)', paddingBottom: 'var(--space-md)', borderBottom: '1px solid var(--color-border)' }}>
-                        {getPositionDescription(lastEntry.pos, lang)}
+                        {getPositionDescription(panelEntry.pos, lang)}
                       </p>
                     )}
-                    <h3>{getCardName(lastEntry.card, lang)}</h3>
+                    <h3>{getCardName(panelEntry.card, lang)}</h3>
                     <p style={{ marginBottom: 'var(--space-sm)', marginTop: 'var(--space-xs)' }}>
-                      <span className={`orientation-badge ${lastEntry.isReversed ? 'reversed' : 'upright'}`}>
-                        {lastEntry.isReversed ? ui.reversed : ui.upright}
+                      <span className={`orientation-badge ${panelEntry.isReversed ? 'reversed' : 'upright'}`}>
+                        {panelEntry.isReversed ? ui.reversed : ui.upright}
                       </span>
                     </p>
                     <p className="spread-revealed-meaning">
-                      {getMeaning(lastEntry.card, lang, lastEntry.isReversed)}
+                      {getMeaning(panelEntry.card, lang, panelEntry.isReversed)}
                     </p>
                   </div>
                 )}

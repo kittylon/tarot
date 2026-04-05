@@ -1,7 +1,7 @@
 import Card from './Card';
 import { getPositionLabel } from '../data/spreads';
 
-export default function SpreadLayout({ spread, drawnCards, onPositionClick, lang = 'en' }) {
+export default function SpreadLayout({ spread, drawnCards, onPositionClick, focusedSlotIndex = null, lang = 'en' }) {
   const height = spread.layoutHeight ?? 440;
   return (
     <div className="spread-layout" style={{ height }}>
@@ -14,8 +14,9 @@ export default function SpreadLayout({ spread, drawnCards, onPositionClick, lang
           transform: `translate(-50%, -50%)${pos.rotate ? ` rotate(${pos.rotate}deg)` : ''}`,
         };
 
+        const isFocused = focusedSlotIndex === i;
         return (
-          <div key={pos.id} className="spread-position" style={style}>
+          <div key={pos.id} className={`spread-position${isFocused ? ' spread-position--focused' : ''}`} style={style}>
             {drawn ? (
               <Card
                 card={drawn.card}
@@ -23,7 +24,7 @@ export default function SpreadLayout({ spread, drawnCards, onPositionClick, lang
                 isReversed={drawn.isReversed}
                 size="sm"
                 lang={lang}
-                onClick={drawn.isFlipped ? undefined : () => onPositionClick(i)}
+                onClick={() => onPositionClick(i)}
                 positionLabel={label}
                 showLabel={false}
               />
