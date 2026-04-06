@@ -1,0 +1,4 @@
+# Cloudflare Pages — build output from Vite
+name = "marseille-tarot"
+compatibility_date = "2025-04-05"
+pages_build_output_dir = "./dist"
