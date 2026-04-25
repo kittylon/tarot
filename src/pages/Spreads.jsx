@@ -21,6 +21,7 @@ export default function Spreads() {
   const [notebookEntries, setNotebookEntries] = useState([]);
   const [focusedSlotIndex, setFocusedSlotIndex] = useState(null);
   const [showSummary,     setShowSummary]     = useState(false);
+  const [cardModal,       setCardModal]       = useState(null);
 
   function handleSpreadSelect(spreadId) {
     setPendingSpread(SPREADS[spreadId]);
@@ -37,6 +38,7 @@ export default function Spreads() {
     setNotebookEntries([]);
     setFocusedSlotIndex(null);
     setShowSummary(false);
+    setCardModal(null);
     setPhase('reading');
   }
 
@@ -44,6 +46,9 @@ export default function Spreads() {
     const entry = drawnCards[index];
     if (!entry) return;
     if (entry.isFlipped) {
+      const pos = selectedSpread.positions[index];
+      const notebookEntry = notebookEntries.find(e => e.positionIndex === index);
+      setCardModal(notebookEntry ?? { card: entry.card, isReversed: entry.isReversed, pos, positionIndex: index });
       setFocusedSlotIndex(index);
       return;
     }
@@ -65,6 +70,7 @@ export default function Spreads() {
     setIntention('');
     setPendingSpread(null);
     setShowSummary(false);
+    setCardModal(null);
   }
 
   // ── Selector ─────────────────────────────────────────────────────────────────
@@ -244,6 +250,35 @@ export default function Spreads() {
           />
         </div>
       </div>
+
+      {cardModal && (
+        <div
+          className="card-meaning-overlay"
+          onClick={() => setCardModal(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={getCardName(cardModal.card, lang)}
+        >
+          <div className="card-meaning-modal" onClick={e => e.stopPropagation()}>
+            <button
+              className="card-meaning-close"
+              onClick={() => setCardModal(null)}
+              aria-label={ui.closeModal}
+            >
+              ×
+            </button>
+            <div className="card-meaning-pos">{getPositionLabel(cardModal.pos, lang)}</div>
+            {getPositionDescription(cardModal.pos, lang) && (
+              <p className="card-meaning-pos-desc">{getPositionDescription(cardModal.pos, lang)}</p>
+            )}
+            <h3 className="card-meaning-name">{getCardName(cardModal.card, lang)}</h3>
+            <span className={`orientation-badge ${cardModal.isReversed ? 'reversed' : 'upright'}`}>
+              {cardModal.isReversed ? ui.reversed : ui.upright}
+            </span>
+            <p className="card-meaning-text">{getMeaning(cardModal.card, lang, cardModal.isReversed)}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

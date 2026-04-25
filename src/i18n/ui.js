@@ -65,6 +65,7 @@ export const UI = {
       summaryBtn: '✦ Resumen de la Lectura',
       summaryTitle: 'Resumen de tu Lectura',
       summaryBack: '← Volver a la Tirada',
+      closeModal: 'Cerrar',
     },
     journal: {
       title: 'Diario', today: 'Hoy', pastReadings: 'Lecturas Pasadas',
@@ -150,6 +151,7 @@ export const UI = {
       summaryBtn: '✦ Reading Summary',
       summaryTitle: 'Your Reading Summary',
       summaryBack: '← Back to Spread',
+      closeModal: 'Close',
     },
     journal: {
       title: 'Daily Journal', today: 'Today', pastReadings: 'Past Readings',
@@ -235,6 +237,7 @@ export const UI = {
       summaryBtn: '✦ Résumé de la Lecture',
       summaryTitle: 'Résumé de ta Lecture',
       summaryBack: '← Retour au Tirage',
+      closeModal: 'Fermer',
     },
     journal: {
       title: 'Journal', today: "Aujourd'hui", pastReadings: 'Lectures Passées',
