@@ -379,9 +379,9 @@ img { display: block; max-width: 100%; }
   white-space: nowrap;
 }
 
-/* Hover glow on clickable cards */
-.card-container[role='button']:hover .card-inner,
-.card-container[role='button']:focus .card-inner {
+/* Hover glow on clickable cards — only unflipped, to avoid flattening the preserve-3d context on revealed cards */
+.card-container[role='button']:hover .card-inner:not(.is-flipped),
+.card-container[role='button']:focus .card-inner:not(.is-flipped) {
   filter: drop-shadow(0 0 12px rgba(201,168,76,0.4));
 }
 
