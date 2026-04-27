@@ -76,11 +76,11 @@ export const SPREADS = {
     idealFor: { en: 'Complex life situations, long-term decisions, love affairs, career crossroads, or any question needing full context.',
                 es: 'Situaciones de vida complejas, decisiones a largo plazo, asuntos amorosos, encrucijadas laborales o preguntas que requieren contexto completo.',
                 fr: 'Situations complexes, décisions à long terme, affaires de cœur, carrefours professionnels ou toute question nécessitant un contexte complet.' },
-    cardCount: 10, layoutHeight: 480,
+    cardCount: 10, layoutHeight: 740,
     positions: [
       {
-        id: 0, x: 33, y: 48,
-        labels:        { en: 'The Situation',  es: 'La Situación',   fr: 'La Situation' },
+        id: 0, x: 33, y: 36,
+        labels:        { en: 'The Situation',  es: 'Situación Presente',   fr: 'La Situation' },
         positionDescriptions: {
           en: 'The heart of the matter. This card captures the essence of what the reading is about — the central energy or theme you are navigating right now.',
           es: 'El corazón del asunto. Esta carta captura la esencia de la lectura — la energía o tema central que estás navegando ahora mismo.',
@@ -88,8 +88,8 @@ export const SPREADS = {
         },
       },
       {
-        id: 1, x: 33, y: 48, rotate: 90,
-        labels:        { en: 'The Challenge',  es: 'El Obstáculo',   fr: "L'Obstacle" },
+        id: 1, x: 33, y: 61,
+        labels:        { en: 'The Challenge',  es: 'El Cruce',   fr: "L'Obstacle" },
         positionDescriptions: {
           en: 'What crosses you. This card represents the main obstacle, opposing force, or complicating factor working against the central situation.',
           es: 'Lo que te cruza. Esta carta representa el principal obstáculo, la fuerza opuesta o el factor complicante que actúa contra la situación central.',
@@ -97,8 +97,8 @@ export const SPREADS = {
         },
       },
       {
-        id: 2, x: 33, y: 78,
-        labels:        { en: 'Foundation',  es: 'La Raíz',    fr: 'La Racine' },
+        id: 2, x: 33, y: 87,
+        labels:        { en: 'Foundation',  es: 'Base / Fundamento',    fr: 'La Racine' },
         positionDescriptions: {
           en: 'The root of the matter. This is the unconscious basis, the deep past, or the hidden foundation upon which the entire situation rests.',
           es: 'La raíz del asunto. Es la base inconsciente, el pasado profundo o el fundamento oculto sobre el que descansa toda la situación.',
@@ -106,7 +106,7 @@ export const SPREADS = {
         },
       },
       {
-        id: 3, x: 16, y: 48,
+        id: 3, x: 10, y: 36,
         labels:        { en: 'Recent Past',  es: 'Pasado Reciente',  fr: 'Passé Récent' },
         positionDescriptions: {
           en: 'Events and energies that have just passed. These influences are leaving your life but still carry weight and continue to shape the present.',
@@ -115,8 +115,8 @@ export const SPREADS = {
         },
       },
       {
-        id: 4, x: 33, y: 18,
-        labels:        { en: 'Best Outcome',  es: 'Mejor Resultado',  fr: 'Meilleur Résultat' },
+        id: 4, x: 33, y: 11,
+        labels:        { en: 'Best Outcome',  es: 'Mejor Desenlace',  fr: 'Meilleur Résultat' },
         positionDescriptions: {
           en: 'The best possible result or what you aspire toward. This card shows the ideal outcome that could emerge if you act with awareness.',
           es: 'El mejor resultado posible o lo que aspiras. Esta carta muestra el resultado ideal que podría surgir si actúas con conciencia.',
@@ -124,7 +124,7 @@ export const SPREADS = {
         },
       },
       {
-        id: 5, x: 50, y: 48,
+        id: 5, x: 56, y: 36,
         labels:        { en: 'Near Future',  es: 'Futuro Próximo',  fr: 'Futur Proche' },
         positionDescriptions: {
           en: 'What is approaching in the short term. This is the next event or energy coming into your life — what comes directly after the present moment.',
@@ -133,7 +133,7 @@ export const SPREADS = {
         },
       },
       {
-        id: 6, x: 72, y: 80,
+        id: 6, x: 87, y: 87,
         labels:        { en: 'Your Approach',  es: 'Tu Actitud',  fr: 'Votre Attitude' },
         positionDescriptions: {
           en: 'How you see yourself in this situation and your attitude toward it. This reflects your inner state, your fears, or how you are consciously approaching the matter.',
@@ -142,8 +142,8 @@ export const SPREADS = {
         },
       },
       {
-        id: 7, x: 72, y: 60,
-        labels:        { en: 'External Forces',  es: 'Fuerzas Externas',  fr: 'Forces Externes' },
+        id: 7, x: 87, y: 61,
+        labels:        { en: 'External Influences',  es: 'Influencias Externas',  fr: 'Forces Externes' },
         positionDescriptions: {
           en: 'The people, environment, and circumstances around you. This card shows how others see you or the external factors influencing the situation.',
           es: 'Las personas, el entorno y las circunstancias que te rodean. Esta carta muestra cómo te ven los demás o los factores externos que influyen en la situación.',
@@ -151,7 +151,7 @@ export const SPREADS = {
         },
       },
       {
-        id: 8, x: 72, y: 40,
+        id: 8, x: 87, y: 36,
         labels:        { en: 'Hopes & Fears',  es: 'Esperanzas y Miedos',  fr: 'Espoirs et Peurs' },
         positionDescriptions: {
           en: 'Your deepest hope — which is often also your deepest fear. This card reveals the hidden emotional charge you carry about how this situation might resolve.',
@@ -160,7 +160,7 @@ export const SPREADS = {
         },
       },
       {
-        id: 9, x: 72, y: 20,
+        id: 9, x: 87, y: 11,
         labels:        { en: 'Final Outcome',  es: 'Resultado Final',  fr: 'Résultat Final' },
         positionDescriptions: {
           en: 'The culmination of all the energies at play. This is the most likely final result if you follow the path currently set — the synthesis of the entire reading.',
