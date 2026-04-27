@@ -5,6 +5,7 @@ import { drawMultiple, MAJOR_ARCANA, getMeaning, getCardName } from '../data/car
 import SpreadLayout from '../components/SpreadLayout';
 import IntentionModal from '../components/IntentionModal';
 import ReadingNotebook from '../components/ReadingNotebook';
+import CardRevealPanel from '../components/CardRevealPanel';
 import { useLang } from '../context/LangContext';
 import { UI } from '../i18n/ui';
 
@@ -119,10 +120,9 @@ export default function Spreads() {
   const allFlipped    = drawnCards.length > 0 && drawnCards.every(d => d.isFlipped);
   const revealedCount = drawnCards.filter(d => d.isFlipped).length;
   const panelEntry =
-    (focusedSlotIndex !== null &&
-      notebookEntries.find(e => e.positionIndex === focusedSlotIndex)) ||
-    notebookEntries[notebookEntries.length - 1] ||
-    null;
+    focusedSlotIndex !== null
+      ? (notebookEntries.find(e => e.positionIndex === focusedSlotIndex) ?? null)
+      : null;
 
   return (
     <div className="page-content">
@@ -201,26 +201,6 @@ export default function Spreads() {
                   lang={lang}
                 />
 
-                {panelEntry && (
-                  <div className="spread-revealed-panel">
-                    <div className="spread-revealed-pos">{getPositionLabel(panelEntry.pos, lang)}</div>
-                    {getPositionDescription(panelEntry.pos, lang) && (
-                      <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', fontStyle: 'italic', lineHeight: 1.6, marginBottom: 'var(--space-md)', paddingBottom: 'var(--space-md)', borderBottom: '1px solid var(--color-border)' }}>
-                        {getPositionDescription(panelEntry.pos, lang)}
-                      </p>
-                    )}
-                    <h3>{getCardName(panelEntry.card, lang)}</h3>
-                    <p style={{ marginBottom: 'var(--space-sm)', marginTop: 'var(--space-xs)' }}>
-                      <span className={`orientation-badge ${panelEntry.isReversed ? 'reversed' : 'upright'}`}>
-                        {panelEntry.isReversed ? ui.reversed : ui.upright}
-                      </span>
-                    </p>
-                    <p className="spread-revealed-meaning">
-                      {getMeaning(panelEntry.card, lang, panelEntry.isReversed)}
-                    </p>
-                  </div>
-                )}
-
                 {allFlipped && (
                   <div className="spread-complete-actions">
                     <button className="btn btn-gold btn-summary" onClick={() => setShowSummary(true)}>
@@ -245,7 +225,11 @@ export default function Spreads() {
         </div>
       </div>
 
-
+      <CardRevealPanel
+        entry={panelEntry}
+        lang={lang}
+        onClose={() => setFocusedSlotIndex(null)}
+      />
     </div>
   );
 }
