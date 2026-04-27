@@ -87,6 +87,18 @@ body {
   line-height: 1.6;
 }
 
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(90,40,160,0.25) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(40,20,100,0.30) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(30,10,70,0.40) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
 h1, h2, h3, h4, h5 {
   font-family: var(--font-serif);
   color: var(--color-accent-gold);
@@ -103,11 +115,35 @@ button {
 
 img { display: block; max-width: 100%; }
 
+/* ─── Starfield ──────────────────────────────────────────────── */
+
+.stars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.stars span {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle var(--d, 8s) var(--delay, 0s) infinite alternate ease-in-out;
+}
+
+@keyframes twinkle {
+  from { opacity: 0.1; transform: scale(0.8); }
+  to   { opacity: 0.7; transform: scale(1.2); }
+}
+
 /* ─── Layout helpers ─────────────────────────────────────────── */
 
 .page-content {
   padding-top: var(--navbar-h);
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -717,13 +753,6 @@ img { display: block; max-width: 100%; }
   overflow: hidden;
 }
 
-.home-stars {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
 .home-hero h1 {
   font-size: clamp(2rem, 6vw, 4rem);
   margin-bottom: var(--space-sm);
@@ -1024,11 +1053,6 @@ img { display: block; max-width: 100%; }
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50%       { opacity: 0.8; }
 }
 
 /* ─── Responsive ─────────────────────────────────────────────── */
