@@ -524,10 +524,9 @@ const RANK_ID = {
   11: 'page', 12: 'knight', 13: 'queen', 14: 'king',
 };
 
-// Confirmed Wikimedia filenames for Jean Dodal minor arcana
-const MINOR_WIKI = {
-  'wands-knight': 'Jean Dodal Tarot batons Knight.jpg',
-};
+// Images from Rider-Waite-Smith (1909) colored deck — public domain
+// Filename pattern: "RWS1909 - {Suit} {01-14}.jpeg"
+const SUIT_WIKI_NAME = { wands: 'Wands', cups: 'Cups', swords: 'Swords', pentacles: 'Pentacles' };
 
 function makeMinorCard(suit, rank) {
   const suitId = RANK_ID[rank];
@@ -573,7 +572,7 @@ function makeMinorCard(suit, rank) {
     romanNumeral: null,
     meanings,
     keywords,
-    wikimediaFile: MINOR_WIKI[id] || null,
+    wikimediaFile: `RWS1909 - ${SUIT_WIKI_NAME[suit]} ${String(rank).padStart(2, '0')}.jpeg`,
   };
 }
 
