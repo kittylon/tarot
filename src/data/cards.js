@@ -524,8 +524,8 @@ const RANK_ID = {
   11: 'page', 12: 'knight', 13: 'queen', 14: 'king',
 };
 
-// Images from "Pictorial Key to the Tarot" (Rider-Waite, 1911) — public domain
-// Filename pattern: "Pictorial Key to the Tarot {Suit} {01-14}.jpg"
+// Images from Rider-Waite-Smith (1909) colored deck — public domain
+// Filename pattern: "RWS1909 - {Suit} {01-14}.jpeg"
 const SUIT_WIKI_NAME = { wands: 'Wands', cups: 'Cups', swords: 'Swords', pentacles: 'Pentacles' };
 
 function makeMinorCard(suit, rank) {
@@ -572,7 +572,7 @@ function makeMinorCard(suit, rank) {
     romanNumeral: null,
     meanings,
     keywords,
-    wikimediaFile: `Pictorial Key to the Tarot ${SUIT_WIKI_NAME[suit]} ${String(rank).padStart(2, '0')}.jpg`,
+    wikimediaFile: `RWS1909 - ${SUIT_WIKI_NAME[suit]} ${String(rank).padStart(2, '0')}.jpeg`,
   };
 }
 
