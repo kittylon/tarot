@@ -524,10 +524,9 @@ const RANK_ID = {
   11: 'page', 12: 'knight', 13: 'queen', 14: 'king',
 };
 
-// Confirmed Wikimedia filenames for Jean Dodal minor arcana
-const MINOR_WIKI = {
-  'wands-knight': 'Jean Dodal Tarot batons Knight.jpg',
-};
+// Images from "Pictorial Key to the Tarot" (Rider-Waite, 1911) — public domain
+// Filename pattern: "Pictorial Key to the Tarot {Suit} {01-14}.jpg"
+const SUIT_WIKI_NAME = { wands: 'Wands', cups: 'Cups', swords: 'Swords', pentacles: 'Pentacles' };
 
 function makeMinorCard(suit, rank) {
   const suitId = RANK_ID[rank];
@@ -573,7 +572,7 @@ function makeMinorCard(suit, rank) {
     romanNumeral: null,
     meanings,
     keywords,
-    wikimediaFile: MINOR_WIKI[id] || null,
+    wikimediaFile: `Pictorial Key to the Tarot ${SUIT_WIKI_NAME[suit]} ${String(rank).padStart(2, '0')}.jpg`,
   };
 }
 
